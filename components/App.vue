@@ -1,24 +1,24 @@
 <template>
-  <UserLst :users="users" />
+  <TodoLst :todos="todos" />
 </template>
 
 <script>
 
-import { loadUsers } from "../api/api.js";
-import UserLst from "./UserLst";
+import { loadTodos } from "../api/api.js";
+import TodoLst from "./TodoLst";
 
 export default {
   name: "App",
   components: {
-    UserLst,
+    TodoLst,
   },
   data() {
-    return { users: [] };
+    return { todos: [] };
   },
   mounted() {
-     loadUsers().then((users) => {
-       if (users.length < 1) return;
-       this.users = users;
+     loadTodos().then((todos) => {
+       if (todos.length < 1) return;
+       this.todos = todos;
      });
   },
 };

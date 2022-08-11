@@ -1,9 +1,9 @@
-export const loadUsers = async function () {
+export const loadTodos = async function () {
     try {
-        return await fetch("https://jsonplaceholder.typicode.com/users")
+        return await fetch("https://jsonplaceholder.typicode.com/todos")
             .then(r => r.json());
     } catch (e) {
-        console.error(`1111 ${e.message}`)
+        console.log(`e.message`)
     }
 
 }
