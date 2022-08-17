@@ -25,12 +25,12 @@ export default {
       type: Number,
       default: 25,
     },
+    currentPage: {
+      type: Number,
+      default: 1
+    }
   },
-  data() {
-    return {
-      currentPage: 1,
-    };
-  },
+
   computed: {
     totalPages() {
       return Math.ceil(this.total / this.item);
