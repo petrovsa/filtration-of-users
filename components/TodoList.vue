@@ -1,29 +1,25 @@
 <template>
   <div>
-    <p>
-      Фильтр
-      <input placeholder="filter..." v-model="filter" />
-      <transactionPaginated
+    <label for="filter">Фильтр</label>
+      <input placeholder="filter..." v-model="filter" id="filter"/>
+      <TransactionPaginated
         :total="total"
         :currentPage="currentPage"
         @changePage="changePage"
+        @moveToNext="changePage"
+        @moveToBack="changePage"
       />
-    </p>
+    <h3>Todo Name</h3>
     <table>
-      <tbody>
-        <tr>
-          <th>Todo Name</th>
-        </tr>
         <tr v-for="todo in filteredTodos" :key="todo.id">
           <td>{{ todo.title }}</td>
         </tr>
-      </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import transactionPaginated from "./transactionPaginated.vue";
+import TransactionPaginated from "./TransactionPaginated.vue";
 export default {
   props: {
     todos: { type: Array, required: true },
@@ -32,35 +28,37 @@ export default {
     return {
       filter: "",
       currentPage: 1,
-      f: null,
+      paginatedTodo: null,
+      hasNext: true,
     };
   },
   components: {
-    transactionPaginated,
+    TransactionPaginated,
   },
   computed: {
     total() {
-      return this.filter ? this.f.length : this.todos.length;
+      return this.filter ? this.paginatedTodo.length : this.todos.length;
     },
     filteredTodos() {
       const start = (this.currentPage - 1) * 25;
       const end = this.currentPage * 25;
-      this.f = this.filter
+      this.paginatedTodo = this.filter
         ? this.todos
             .filter((todo) =>
-              [todo.title].some((t) =>
-                t.toLowerCase().includes(this.filter.toLowerCase())
+              [todo.title].some((text) =>
+                text.toLowerCase().includes(this.filter.toLowerCase().trim())
               )
             )
 
         : this.todos;
-      return this.f.slice(start,end);
+      return this.paginatedTodo.slice(start,end);
     },
   },
   methods: {
     changePage(page) {
       this.currentPage = page;
     },
+
   },
   watch: {
     filter() {

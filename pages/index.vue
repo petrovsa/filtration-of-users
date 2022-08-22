@@ -1,23 +1,20 @@
 <template>
-  <TodoLst :todos="todos" />
+  <TodoList :todos="todos" />
 </template>
 
 <script>
-import TodoLst from "../components/TodoLst";
-import { loadTodos } from "../api/api";
+import TodoList from "../components/TodoList";
 export default {
   name: "IndexPage",
-  asyncData() {
-    return {
-      todos: [],
-    };
+  async asyncData() {
+    try {
+      const todos = await fetch("https://jsonplaceholder.typicode.com/todos")
+          .then(r => r.json()).then();
+      return { todos };
+    } catch (e) {
+      console.log(`e.message`)
+    }
   },
-  mounted() {
-    loadTodos().then((todos) => {
-      if (todos.length < 1) return;
-      this.todos = todos;
-    });
-  },
-  components: { TodoLst },
+  components: { TodoList },
 };
 </script>
