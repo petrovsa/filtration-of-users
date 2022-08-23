@@ -6,8 +6,6 @@
         :total="total"
         :currentPage="currentPage"
         @changePage="changePage"
-        @moveToNext="changePage"
-        @moveToBack="changePage"
       />
     <h3>Todo Name</h3>
     <table>
@@ -43,13 +41,7 @@ export default {
       const start = (this.currentPage - 1) * 25;
       const end = this.currentPage * 25;
       this.paginatedTodo = this.filter
-        ? this.todos
-            .filter((todo) =>
-              [todo.title].some((text) =>
-                text.toLowerCase().includes(this.filter.toLowerCase().trim())
-              )
-            )
-
+        ? this.todos.filter((todo) => todo.title.toLowerCase().includes(this.filter.toLowerCase().trim()))
         : this.todos;
       return this.paginatedTodo.slice(start,end);
     },
