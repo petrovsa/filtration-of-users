@@ -40,9 +40,7 @@ export default {
     filteredTodos() {
       const start = (this.currentPage - 1) * 25;
       const end = this.currentPage * 25;
-      this.paginatedTodo = this.filter
-        ? this.todos.filter((todo) => todo.title.toLowerCase().includes(this.filter.toLowerCase().trim()))
-        : this.todos;
+      this.paginatedTodo = this.todos.filter((todo) => todo.title.toLowerCase().includes(this.filter.toLowerCase().trim()));
       return this.paginatedTodo.slice(start,end);
     },
   },
