@@ -7,12 +7,14 @@ import TodoList from "../components/TodoList";
 export default {
   name: "IndexPage",
   async asyncData() {
-      const todos = await fetch("https://jsonplaceholder.typicode.com/todos")
-          .then(r => r.json()).catch((error) => {
-            console.log(error)
-    });
+    try {
+      const data = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const todos = await data.json();
       return { todos };
-
+    }
+    catch (e) {
+console.log(e.message);
+    }
   },
   components: { TodoList },
 };

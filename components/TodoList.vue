@@ -9,9 +9,11 @@
       />
     <h3>Todo Name</h3>
     <table>
+      <tbody>
         <tr v-for="todo in filteredTodos" :key="todo.id">
           <td>{{ todo.title }}</td>
         </tr>
+      </tbody>
     </table>
   </div>
 </template>
